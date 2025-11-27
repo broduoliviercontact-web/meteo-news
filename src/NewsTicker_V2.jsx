@@ -4,14 +4,14 @@ import React, { useEffect, useRef, useState } from 'react'
 // ================== CONFIG FLUX ==================
 
 const FEEDS = [
-  { id: 'cnews',      label: 'CNEWS',      proxyUrl: '/rss-cnews',      directUrl: 'https://www.cnews.fr/rss.xml' },
-  { id: 'bfmtv',      label: 'BFMTV',      proxyUrl: '/rss-bfmtv',      directUrl: 'https://www.bfmtv.com/rss/news-24-7/' },
-  { id: 'franceinfo', label: 'FRANCEINFO', proxyUrl: '/rss-franceinfo', directUrl: 'https://www.franceinfo.fr/titres.rss' },
-  { id: 'afp',        label: 'AFP',        proxyUrl: '/rss-afp',        directUrl: 'https://www.afp.com/fr/actus/afp_actualite/792,31,9,7,33/feed' },
-  { id: 'rmc',        label: 'RMC',        proxyUrl: '/rss-rmc',        directUrl: 'https://rmc.bfmtv.com/rss/actualites/' },
-  { id: '20minutes',  label: '20 MIN',     proxyUrl: '/rss-20minutes',  directUrl: 'https://www.20minutes.fr/feeds/rss-une.xml' },
-  { id: 'figaro',     label: 'FIGARO',     proxyUrl: '/rss-figaro',     directUrl: 'https://www.lefigaro.fr/rss/figaro_actualites.xml' },
-  { id: 'lemonde',    label: 'LE MONDE',   proxyUrl: '/rss-lemonde',    directUrl: 'https://www.lemonde.fr/rss/une.xml' },
+  { id: 'cnews',      label: 'CNEWS',      proxyUrl: '/.netlify/functions/rss?id=cnews',      directUrl: 'https://www.cnews.fr/rss.xml' },
+  { id: 'bfmtv',      label: 'BFMTV',      proxyUrl: '/.netlify/functions/rss?id=bfmtv',      directUrl: 'https://www.bfmtv.com/rss/news-24-7/' },
+  { id: 'franceinfo', label: 'FRANCEINFO', proxyUrl: '/.netlify/functions/rss?id=franceinfo', directUrl: 'https://www.franceinfo.fr/titres.rss' },
+  { id: 'afp',        label: 'AFP',        proxyUrl: '/.netlify/functions/rss?id=afp',        directUrl: 'https://www.afp.com/fr/actus/afp_actualite/792,31,9,7,33/feed' },
+  { id: 'rmc',        label: 'RMC',        proxyUrl: '/.netlify/functions/rss?id=rmc',        directUrl: 'https://rmc.bfmtv.com/rss/actualites/' },
+  { id: '20minutes',  label: '20 MIN',     proxyUrl: '/.netlify/functions/rss?id=20minutes',  directUrl: 'https://www.20minutes.fr/feeds/rss-une.xml' },
+  { id: 'figaro',     label: 'FIGARO',     proxyUrl: '/.netlify/functions/rss?id=figaro',     directUrl: 'https://www.lefigaro.fr/rss/figaro_actualites.xml' },
+  { id: 'lemonde',    label: 'LE MONDE',   proxyUrl: '/.netlify/functions/rss?id=lemonde',    directUrl: 'https://www.lemonde.fr/rss/une.xml' },
 ]
 
 // ================== MOTS-CLÉS ISLAM ==================
