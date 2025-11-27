@@ -1,0 +1,718 @@
+/* src/styles.css
+   Ajout : accélération du défilement au hover sur .marquee (et .marquee--small)
+   - variables --marquee-duration / --marquee-hover-duration pour contrôler les vitesses
+   - suppression du pause au hover (remplacée par changement de duration)
+   - fallback réduit pour prefers-reduced-motion
+*/
+
+/* ================== Variables ================== */
+:root {
+  --cnews-red: #e2001a;
+  --cnews-black: #000000;
+  --cnews-white: #ffffff;
+
+  --bfm-blue: #003bbf;
+  --bfm-orange: #ff8200;
+
+  --fi-dark: #1d1d21;
+  --fi-yellow: #ffcc00;
+
+  --islam-green: #0a7a32;
+
+  --ticker-height: 64px;
+  --ticker-font: "Helvetica Neue", system-ui, -apple-system, BlinkMacSystemFont,
+    sans-serif;
+
+  --afp-blue: #0a2f6b;
+  --rmc-red: #d81920;
+
+  --figaro-blue: #002b5c;
+  --figaro-accent: #d32f2f;
+
+  --20min-yellow: #ffd400;
+  --20min-black: #000000;
+
+  --hover-ease: cubic-bezier(0.2, 0.9, 0.2, 1);
+
+  /* MARQUEE speeds */
+  --marquee-duration: 250s;
+  --marquee-hover-duration: 80s;       /* plus rapide au hover */
+  --marquee-small-duration: 200s;
+  --marquee-small-hover-duration: 60s; /* plus rapide pour petites marquees */
+}
+
+/* ================== Reset / Base ================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--ticker-font);
+  background: #111;
+  color: #fff;
+}
+
+/* ===== Layout global ===== */
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Le bloc qui contient le bandeau principal + la liste */
+.ticker-wrapper {
+  width: 100%;
+  flex: 1; /* prend tout l'espace dispo au-dessus du footer */
+  display: flex;
+  flex-direction: column;
+}
+
+/* ===== TICKER PRINCIPAL (base) ===== */
+.ticker {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: var(--ticker-height);
+  font-size: 1.25rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  overflow: hidden;
+
+  /* enable transitions for hover/focus effects */
+  transition: transform 220ms var(--hover-ease), box-shadow 220ms var(--hover-ease),
+    background-color 220ms var(--hover-ease), color 220ms var(--hover-ease);
+
+  will-change: transform, box-shadow, background-color, color;
+  position: relative;
+}
+
+/* Variante CNEWS (fond rouge) */
+.ticker--cnews {
+  background: var(--cnews-red);
+  color: var(--cnews-white);
+}
+
+/* Variante BFMTV (fond bleu) */
+.ticker--bfm {
+  background: var(--bfm-blue);
+  color: var(--cnews-white);
+}
+
+/* Variante FRANCEINFO (fond gris très foncé) */
+.ticker--franceinfo {
+  background: var(--fi-dark);
+  color: var(--fi-yellow);
+}
+
+/* Bloc logo (commun) */
+.brand {
+  display: flex;
+  flex-direction: column; /* logo en haut, date en bas */
+  align-items: center;
+  justify-content: flex-start;
+  padding: 6px 16px;
+  height: 100%;
+  font-weight: 800;
+  position: relative;
+}
+
+/* Logo + date */
+.brand-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 4px;
+}
+
+/* Logo CNEWS */
+.brand--cnews {
+  background: var(--cnews-black);
+}
+
+.brand-c {
+  background: var(--cnews-black);
+  color: var(--cnews-white);
+  padding: 6px 6px;
+  border-radius: 2px 0 0 2px;
+}
+
+.brand-news {
+  color: var(--cnews-white);
+  padding: 6px 6px;
+  border-radius: 0 2px 2px 0;
+  background-color: #e2001a;
+}
+
+/* Logo BFMTV */
+.brand--bfm {
+  background: var(--bfm-blue);
+}
+
+.brand-bfm,
+.brand-tv {
+  font-weight: 900;
+  letter-spacing: 0.06em;
+}
+
+.brand-bfm {
+  color: var(--bfm-orange);
+  font-size: 1rem;
+}
+
+.brand-tv {
+  color: var(--cnews-white);
+  font-size: 0.9rem;
+  margin-left: 4px;
+}
+
+/* Logo franceinfo */
+.brand--franceinfo {
+  background: var(--fi-dark);
+}
+
+.brand-logo--fi {
+  gap: 6px;
+}
+
+.fi-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--fi-yellow);
+}
+
+.fi-text {
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: lowercase;
+  color: var(--cnews-white);
+}
+
+/* Date sous le logo */
+.brand-date {
+  margin-top: 2px;
+  font-size: 0.65rem;
+  text-transform: none;
+  letter-spacing: 0;
+  color: #f5f5f5;
+  opacity: 0.95;
+  line-height: 1;
+
+  transform: translateY(0);
+  transition: transform 180ms var(--hover-ease), opacity 180ms var(--hover-ease),
+    color 180ms var(--hover-ease);
+}
+
+/* version plus petite dans la liste */
+.brand--small .brand-date {
+  font-size: 0.6rem;
+  margin-top: 0px;
+}
+
+/* Zone du texte / titre courant */
+.title-area {
+  flex: 1;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.title,
+.status {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  transition: text-shadow 180ms var(--hover-ease), color 180ms var(--hover-ease);
+}
+
+.status {
+  font-size: 0.9rem;
+  opacity: 0.85;
+}
+
+.status-error {
+  color: #ffe082;
+}
+
+/* ===== MARQUEE (description du bandeau principal) ===== */
+.marquee {
+  position: relative;
+  width: 100%;
+  background: #000;
+  overflow: hidden;
+  height: 32px;
+  border-top: 1px solid #333;
+}
+
+/* Use CSS variables for durations so we can change on hover */
+.marquee__inner {
+  display: inline-block;
+  padding-left: 100%;
+  white-space: nowrap;
+  animation: ticker-scroll var(--marquee-duration) linear infinite;
+}
+
+/* Small marquees use their own duration */
+.marquee__inner.marquee__inner--small,
+.marquee__inner--small {
+  animation: ticker-scroll var(--marquee-small-duration) linear infinite;
+}
+
+.marquee__item {
+  display: inline-block;
+  padding: 0 3rem;
+  font-size: 0.9rem;
+  line-height: 32px;
+}
+
+/* Animation de défilement gauche -> droite */
+@keyframes ticker-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+/* ===== Hover: speed up the marquee =====
+   On hover we change the animation-duration via variables to speed up the scroll.
+   This will restart the animation (acceptable for marquee speed change).
+*/
+.marquee:hover .marquee__inner {
+  animation-duration: var(--marquee-hover-duration);
+}
+
+.marquee:hover .marquee__inner.marquee__inner--small,
+.marquee--small:hover .marquee__inner--small,
+.marquee--small:hover .marquee__inner {
+  animation-duration: var(--marquee-small-hover-duration);
+}
+
+/* ===== Removed previous pause-on-hover behavior =====
+   We intentionally don't pause on hover; instead we speed it up.
+*/
+
+/* ===== MARQUEE small item styles ===== */
+.marquee--small {
+  height: 24px;
+  border-top: none;
+  background: #000;
+}
+
+.marquee__inner--small {
+  display: inline-block;
+  padding-left: 100%;
+  white-space: nowrap;
+  animation: ticker-scroll var(--marquee-small-duration) linear infinite;
+}
+
+.marquee__item--small {
+  font-size: 0.8rem;
+  line-height: 24px;
+  padding: 0 2rem;
+}
+
+/* ===== Liste de tous les bandeaux (un par ligne avec leur marquee) ===== */
+.ticker-list {
+  margin-top: 16px;
+  flex: 1; /* prend tout l'espace restant au-dessus du footer */
+  overflow-y: auto; /* scroll si beaucoup de titres */
+}
+
+.ticker-list-item {
+  margin-bottom: 8px;
+}
+
+/* version compacte du bandeau pour la liste */
+.ticker--compact {
+  height: 60px;
+  font-size: 0.9rem;
+
+  transition: transform 220ms var(--hover-ease), box-shadow 220ms var(--hover-ease),
+    background-color 220ms var(--hover-ease);
+  will-change: transform, box-shadow, background-color;
+  position: relative;
+}
+
+/* logo un peu plus petit dans la liste */
+.brand--small {
+  padding: 0 10px;
+}
+
+/* vitesse spécifique pour les petites marquees handled above */
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+  :root {
+    --ticker-height: 52px;
+  }
+
+  .ticker {
+    font-size: 1rem;
+  }
+
+  .title-area {
+    padding: 0 12px;
+  }
+
+  .marquee__item {
+    padding: 0 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .ticker {
+    font-size: 0.9rem;
+  }
+
+  .brand {
+    padding: 6px 10px;
+  }
+}
+
+/* ===== Footer ===== */
+.footer {
+  padding: 8px 16px;
+  text-align: center;
+  background: #000;
+  color: #fff;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+/* ================= Source / brand variants ================== */
+/* Variante "sujet islam" : le bandeau passe en vert */
+.ticker--islam {
+  background: var(--islam-green);
+  color: #ffffff;
+}
+
+/* Texte mis en valeur pour les mots-clés islam */
+.keyword-islam {
+  font-weight: 900;
+  color: #38f27d;
+}
+
+/* Quand le bandeau est déjà vert, on inverse pour garder la lisibilité */
+.ticker--islam .keyword-islam {
+  background: #ffffff;
+  color: var(--islam-green);
+  padding: 0 2px;
+  border-radius: 2px;
+}
+
+/* Variante AFP (fond bleu foncé AFP) */
+.ticker--afp {
+  background: var(--afp-blue);
+  color: #ffffff;
+}
+
+/* Logo AFP */
+.brand--afp {
+  background: var(--afp-blue);
+}
+
+.brand-logo--afp {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.afp-text {
+  font-size: 1rem;
+  font-weight: 900;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #ffffff;
+}
+
+/* Variante RMC (fond rouge RMC) */
+.ticker--rmc {
+  background: var(--rmc-red);
+  color: #ffffff;
+}
+
+/* Logo RMC */
+.brand--rmc {
+  background: var(--rmc-red);
+}
+
+.brand-logo--rmc {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rmc-text {
+  font-size: 1rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #ffffff;
+}
+
+/* Filters / buttons */
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: #000;
+  border-bottom: 1px solid #333;
+}
+
+.filter-label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  opacity: 0.7;
+}
+
+.filter-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-left: 8px;
+}
+
+.filter-buttons--right {
+  margin-left: auto;
+}
+
+.filter-button {
+  border: 1px solid #444;
+  background: #222;
+  color: #eee;
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+}
+
+.filter-button--active {
+  background: #ffffff;
+  color: #000000;
+}
+
+.filter-button--islam {
+  border-color: var(--islam-green);
+}
+
+/* message aucun résultat */
+.no-results {
+  padding: 16px;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #ccc;
+}
+
+/* mettre en évidence la requête de recherche */
+.keyword-query {
+  background: #ffd54f;
+  color: #000;
+  padding: 0 2px;
+  border-radius: 2px;
+  font-weight: 700;
+}
+
+/* === Le Monde / Figaro / 20minutes specific styles === */
+/* Variante Le Monde (fond sombre bleuté) */
+.ticker--lemonde {
+  background: #233542;
+  color: #ffffff;
+}
+
+/* Logo Le Monde */
+.brand--lemonde {
+  background: #1f2b34;
+}
+
+.brand-logo--lemonde .lemonde-text {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: 0.06em;
+}
+
+/* Figaro */
+.ticker--figaro {
+  background: var(--figaro-blue);
+  color: #ffffff;
+}
+.brand--figaro {
+  background: var(--figaro-blue);
+  color: #ffffff;
+}
+.brand-logo--figaro {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 6px 8px;
+}
+.figaro-le { font-weight: 700; font-size: 0.9rem; color: var(--figaro-accent); text-transform: uppercase; }
+.figaro-text { font-weight: 900; font-size: 0.95rem; color: #ffffff; letter-spacing: 0.06em; }
+
+/* 20 Minutes (logo & variants) */
+.ticker--20minutes {
+  background: #0054a6;
+  color: #ffffff;
+}
+.brand--20minutes {
+  background: #002b5e;
+  color: #ffffff;
+}
+.brand-logo--20minutes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  gap: 4px;
+  padding: 6px 8px;
+}
+.twenty-number {
+  font-size: 1rem;
+  font-weight: 900;
+  background: var(--20min-yellow);
+  color: var(--20min-black);
+  padding: 6px 6px;
+  border-radius: 2px 0 0 2px;
+}
+.twenty-text {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  background: var(--20min-black);
+  color: var(--20min-yellow);
+  padding: 6px 6px;
+  border-radius: 0 2px 2px 0;
+}
+
+/* Quelques ajustements d'accessibilité / lisibilité */
+.ticker--20minutes .title,
+.ticker--20minutes .status {
+  color: var(--20min-black);
+}
+.ticker--figaro .title,
+.ticker--figaro .status {
+  color: #ffffff;
+}
+
+/* ===== Animation quand le flux est rafraîchi ===== */
+.ticker-main {
+  animation: ticker-refresh 0.45s ease-out;
+}
+
+@keyframes ticker-refresh {
+  0% {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ================== Hover / Focus Effects (global) ================== */
+/* Show overlay and lift */
+.ticker:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55);
+  z-index: 6;
+}
+
+/* Slight title emphasis on hover */
+.ticker:hover .title {
+  text-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+  color: inherit;
+}
+
+/* Move date a bit up on hover for visibility */
+.ticker:hover .brand-date {
+  transform: translateY(-3px);
+  opacity: 1;
+}
+
+/* Compact / list item hover: container */
+.ticker-list .ticker-list-item {
+  transition: transform 220ms var(--hover-ease), box-shadow 220ms var(--hover-ease);
+  will-change: transform, box-shadow;
+}
+.ticker-list .ticker-list-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+  z-index: 4;
+}
+
+/* Slight contrast on brand on hover */
+.ticker-list .ticker-list-item:hover .brand,
+.ticker:hover .brand {
+  filter: brightness(1.03);
+  transition: filter 160ms var(--hover-ease);
+}
+
+/* Source-specific subtle hover adjustments to keep readability */
+.ticker--20minutes:hover,
+.ticker-list .ticker-list-item .ticker--20minutes:hover {
+  box-shadow: 0 8px 18px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.03);
+}
+
+/* keyboard focus (accessibility) - mimic hover but visible */
+.ticker:focus,
+.ticker:focus-within,
+.ticker-list .ticker-list-item:focus,
+.ticker-list .ticker-list-item:focus-within {
+  outline: 3px solid rgba(100, 110, 255, 0.15);
+  transform: translateY(-6px);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55);
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .ticker,
+  .ticker--compact,
+  .ticker-list .ticker-list-item,
+  .ticker:hover,
+  .ticker-list .ticker-list-item:hover,
+  .ticker:focus,
+  .ticker:focus-within {
+    transition: none !important;
+    transform: none !important;
+    box-shadow: none !important;
+  }
+  /* pause marquee for reduced motion */
+  .marquee__inner,
+  .marquee__inner--small {
+    animation-play-state: paused !important;
+  }
+}
+
+/* ================== Small tweaks & fallbacks ================== */
+/* If date isn't present, keep brand spacing stable */
+.brand:empty .brand-date,
+.brand .brand-date:empty {
+  display: none;
+}
+
+/* Ensure marquee text remains readable on hover/focus */
+.ticker:hover .marquee__item,
+.ticker-list .ticker-list-item:hover .marquee__item {
+  opacity: 0.98;
+}
+
+/* Small responsive adjustments for hover intensity */
+@media (max-width: 768px) {
+  .ticker:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.45); }
+  .ticker-list .ticker-list-item:hover { transform: translateY(-2px); box-shadow: 0 6px 12px rgba(0,0,0,0.35); }
+}
