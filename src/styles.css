@@ -11,6 +11,17 @@
   --cnews-black: #000000;
   --cnews-white: #ffffff;
 
+<<<<<<< HEAD
+=======
+  --va-red: #c8102e;      /* rouge "Valeurs" approximatif */
+  --va-dark-red: #880016; /* pour foncer un peu le bloc logo si tu veux */
+
+
+  --20min-yellow: #ffd400;
+  --20min-black: #000000;
+
+
+>>>>>>> e296d3e (new feature)
   --bfm-blue: #003bbf;
   --bfm-orange: #ff8200;
 
@@ -36,9 +47,15 @@
 
   /* MARQUEE speeds */
   --marquee-duration: 250s;
+<<<<<<< HEAD
   --marquee-hover-duration: 80s;       /* plus rapide au hover */
   --marquee-small-duration: 200s;
   --marquee-small-hover-duration: 60s; /* plus rapide pour petites marquees */
+=======
+  --marquee-hover-duration: 150s;       /* plus rapide au hover */
+  --marquee-small-duration: 200s;
+  --marquee-small-hover-duration: 300s; /* plus rapide pour petites marquees */
+>>>>>>> e296d3e (new feature)
 }
 
 /* ================== Reset / Base ================== */
@@ -715,4 +732,82 @@ body {
 @media (max-width: 768px) {
   .ticker:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.45); }
   .ticker-list .ticker-list-item:hover { transform: translateY(-2px); box-shadow: 0 6px 12px rgba(0,0,0,0.35); }
+<<<<<<< HEAD
+=======
+}
+
+
+/* Valeurs Actuelles */
+.ticker--valeurs {
+  background: var(--va-red);
+  color: #ffffff;
+}
+
+.brand--valeurs {
+  background: var(--va-red);
+  color: #ffffff;
+}
+
+/* Logo "VALEURS / ACTUELLES" */
+.brand-logo--valeurs {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  line-height: 1;
+  padding: 6px 10px;
+  font-family: "Georgia", "Times New Roman", serif;
+  text-transform: uppercase;
+}
+
+.va-main {
+  font-size: 0.9rem;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+}
+
+.va-sub {
+  font-size: 0.55rem;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  margin-top: 2px;
+  opacity: 0.9;
+}
+
+
+/* ===== L'Express ===== */
+
+/* Bandeau principal */
+.ticker--lexpress {
+  background: var(--lexpress-red);
+  color: #ffffff;
+}
+
+/* Bloc logo à gauche */
+.brand--lexpress {
+  background: #b10016; /* rouge un peu plus sombre pour le bloc logo */
+  color: #ffffff;
+}
+
+.brand-logo--lexpress {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 10px;
+}
+
+.lexpress-text-main {
+  font-size: 0.9rem;
+  font-weight: 900;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.ticker-list-item[data-source="lexpress"] {
+  /* durée normale plus lente que le reste */
+  --marquee-small-duration: 320s;
+
+  /* durée au hover : toujours plus rapide, mais moins "speed" que les autres */
+  --marquee-small-hover-duration: 400s;
+>>>>>>> e296d3e (new feature)
 }

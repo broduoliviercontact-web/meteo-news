@@ -2,18 +2,42 @@
 import React, { useEffect, useRef, useState } from 'react'
 
 // ================== CONFIG FLUX ==================
+<<<<<<< HEAD
 
+=======
+>>>>>>> e296d3e (new feature)
 const FEEDS = [
   { id: 'cnews',      label: 'CNEWS',      proxyUrl: '/.netlify/functions/rss?id=cnews',      directUrl: 'https://www.cnews.fr/rss.xml' },
   { id: 'bfmtv',      label: 'BFMTV',      proxyUrl: '/.netlify/functions/rss?id=bfmtv',      directUrl: 'https://www.bfmtv.com/rss/news-24-7/' },
   { id: 'franceinfo', label: 'FRANCEINFO', proxyUrl: '/.netlify/functions/rss?id=franceinfo', directUrl: 'https://www.franceinfo.fr/titres.rss' },
+<<<<<<< HEAD
   { id: 'afp',        label: 'AFP',        proxyUrl: '/.netlify/functions/rss?id=afp',        directUrl: 'https://www.afp.com/fr/actus/afp_actualite/792,31,9,7,33/feed' },
+=======
+>>>>>>> e296d3e (new feature)
   { id: 'rmc',        label: 'RMC',        proxyUrl: '/.netlify/functions/rss?id=rmc',        directUrl: 'https://rmc.bfmtv.com/rss/actualites/' },
   { id: '20minutes',  label: '20 MIN',     proxyUrl: '/.netlify/functions/rss?id=20minutes',  directUrl: 'https://www.20minutes.fr/feeds/rss-une.xml' },
   { id: 'figaro',     label: 'FIGARO',     proxyUrl: '/.netlify/functions/rss?id=figaro',     directUrl: 'https://www.lefigaro.fr/rss/figaro_actualites.xml' },
   { id: 'lemonde',    label: 'LE MONDE',   proxyUrl: '/.netlify/functions/rss?id=lemonde',    directUrl: 'https://www.lemonde.fr/rss/une.xml' },
+<<<<<<< HEAD
 ]
 
+=======
+  {
+    id: 'lexpress',
+    label: "L'EXPRESS",
+    proxyUrl: '/.netlify/functions/rss?id=lexpress',
+    directUrl: 'https://www.lexpress.fr/arc/outboundfeeds/rss/alaune.xml',
+  },
+  {
+    id: 'valeurs',
+    label: 'VALEURS ACTUELLES',
+    proxyUrl: '/.netlify/functions/rss?id=valeurs',
+    directUrl: 'https://www.valeursactuelles.com/feed?post_type=post',
+  },
+]
+
+
+>>>>>>> e296d3e (new feature)
 // ================== MOTS-CLÉS ISLAM ==================
 
 const ISLAM_KEYWORDS = [
@@ -214,8 +238,11 @@ function getTickerClass(source, isIslam, extra = '') {
     classes.push('ticker--bfm')
   } else if (source === 'franceinfo') {
     classes.push('ticker--franceinfo')
+<<<<<<< HEAD
   } else if (source === 'afp') {
     classes.push('ticker--afp')
+=======
+>>>>>>> e296d3e (new feature)
   } else if (source === 'rmc') {
     classes.push('ticker--rmc')
   } else if (source === '20minutes') {
@@ -224,6 +251,13 @@ function getTickerClass(source, isIslam, extra = '') {
     classes.push('ticker--figaro')
   } else if (source === 'lemonde') {
     classes.push('ticker--lemonde')
+<<<<<<< HEAD
+=======
+  } else if (source === 'lexpress') {
+    classes.push('ticker--lexpress')
+  } else if (source === 'valeurs') {
+    classes.push('ticker--valeurs')
+>>>>>>> e296d3e (new feature)
   } else {
     classes.push('ticker--cnews')
   }
@@ -242,8 +276,15 @@ function Brand({ source, extraClass = '', dateMs }) {
   else if (source === '20minutes') classes.push('brand--20minutes')
   else if (source === 'figaro') classes.push('brand--figaro')
   else if (source === 'lemonde') classes.push('brand--lemonde')
+<<<<<<< HEAD
   else classes.push('brand--cnews')
 
+=======
+  else if (source === 'valeurs') classes.push('brand--valeurs')
+  else classes.push('brand--cnews')
+
+
+>>>>>>> e296d3e (new feature)
   if (extraClass) classes.push(extraClass)
   const className = classes.join(' ')
 
@@ -260,7 +301,11 @@ function Brand({ source, extraClass = '', dateMs }) {
     }
   }
 
+<<<<<<< HEAD
   let logo
+=======
+     let logo
+>>>>>>> e296d3e (new feature)
   if (source === 'bfmtv') {
     logo = (
       <div className="brand-logo">
@@ -275,12 +320,15 @@ function Brand({ source, extraClass = '', dateMs }) {
         <span className="fi-text">franceinfo</span>
       </div>
     )
+<<<<<<< HEAD
   } else if (source === 'afp') {
     logo = (
       <div className="brand-logo brand-logo--afp">
         <span className="afp-text">AFP</span>
       </div>
     )
+=======
+>>>>>>> e296d3e (new feature)
   } else if (source === 'rmc') {
     logo = (
       <div className="brand-logo brand-logo--rmc">
@@ -306,6 +354,15 @@ function Brand({ source, extraClass = '', dateMs }) {
         <span className="lemonde-text">Le Monde</span>
       </div>
     )
+<<<<<<< HEAD
+=======
+  } else if (source === 'lexpress') {
+    logo = (
+      <div className="brand-logo brand-logo--lexpress">
+        <span className="lexpress-text-main">L&apos;EXPRESS</span>
+      </div>
+    )
+>>>>>>> e296d3e (new feature)
   } else {
     logo = (
       <div className="brand-logo">
